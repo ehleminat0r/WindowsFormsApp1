@@ -81,10 +81,7 @@ namespace WindowsFormsApp1.game
 
         public void Shoot()
         {
-            if (IsShooting)
-            {
-                ShootPower++;
-            }
+            ShootPower = 0;
         }
     }
 }
