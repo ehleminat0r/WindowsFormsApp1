@@ -179,7 +179,7 @@
             this.progressBar1.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.progressBar1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.progressBar1.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.progressBar1.Location = new System.Drawing.Point(554, 415);
+            this.progressBar1.Location = new System.Drawing.Point(554, 401);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(234, 23);
             this.progressBar1.TabIndex = 11;
