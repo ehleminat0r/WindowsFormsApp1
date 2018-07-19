@@ -20,7 +20,8 @@ namespace WindowsFormsApp1.game
         private bool down = false;
 
         // Objects
-        private Tank player = new Tank();
+        public Tank player = new Tank();
+        public List<Missile> missiles = new List<Missile>();  
 
         public GameForm()
         {
@@ -41,6 +42,8 @@ namespace WindowsFormsApp1.game
                 System.Threading.Thread.Sleep(10);
                 // Control
                 CheckControls();
+                // Move Missiles
+                MoveMissiles();
                 // Draw
                 DrawGame();
             }
@@ -54,20 +57,51 @@ namespace WindowsFormsApp1.game
             SolidBrush greenBrush = new SolidBrush(Color.Green);
             using (Graphics gr = Graphics.FromImage(bm))
             {
+                // Ground
+                gr.FillRectangle(greenBrush, 0, 441, 800, 80);
+                // Health
                 gr.DrawString(Convert.ToString(player.Health), new Font("Arial", 16), new SolidBrush(Color.Black), 760, 5);
+                // Player
                 gr.DrawEllipse(pen, player.PosX, player.PosY, 20, 20);
                 gr.DrawLine(pen, player.PosX + 10, player.PosY + 10,
                     player.PosX + 10 + (int) (Math.Cos(player.Angle * Math.PI / 180) * 30),
                     player.PosY + 10 - (int) (Math.Sin(player.Angle * Math.PI / 180) * 30));
+                // Power Bar
                 if (player.IsShooting)
                 {
                     gr.DrawRectangle(penBlack, player.PosX - 11, player.PosY - 41, 41, 6);
                     gr.FillRectangle(greenBrush , player.PosX - 10, player.PosY - 40, (float)(player.ShootPower*0.4), 5);
                 }
+                // Missiles
+                foreach (Missile miss in missiles)
+                {
+                    gr.DrawEllipse(penBlack, miss.X, miss.Y, 10, 10);
+                }
+                
             }
             pictureBoxGame.Image = bm;
             // not neccesary ?!
             //pictureBoxGame.Refresh();
+        }
+
+        private void MoveMissiles()
+        {
+            foreach (Missile miss in missiles)
+            {
+                if (miss.Y < 440)
+                {
+                    miss.X += miss.AccX;
+                    miss.Y += miss.AccY;
+                    miss.AccY += 1;
+                }
+                else
+                {
+                    miss.AccX = 0;
+                    miss.AccY = 0;
+                }
+                
+                
+            }
         }
 
         private void CheckControls()
@@ -94,7 +128,7 @@ namespace WindowsFormsApp1.game
             }
             else if (!player.IsShooting && player.ShootPower > 0)
             {
-                player.Shoot();
+                player.Shoot(this);
             }
         }
 

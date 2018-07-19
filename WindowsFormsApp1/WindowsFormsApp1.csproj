@@ -79,6 +79,7 @@
     <Compile Include="game\GameForm.Designer.cs">
       <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="game\Missile.cs" />
     <Compile Include="game\Tank.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

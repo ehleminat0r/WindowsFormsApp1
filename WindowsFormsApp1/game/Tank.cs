@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.game
 {
-    class Tank
+    public class Tank
     {
         private int _posX;
         private int _posY;
@@ -33,7 +34,7 @@ namespace WindowsFormsApp1.game
             set
             {
                 // 400 = window size - tank size
-                if (value > 0 && value < 400)
+                if (value > 0 && value < 440)
                 {
                     _posY = value;
                 }
@@ -60,7 +61,7 @@ namespace WindowsFormsApp1.game
         public Tank()
         {
             PosX = 10;
-            PosY = 200;
+            PosY = 420;
             Angle = 90;
             TankColor = Color.Blue;
             Health = 100;
@@ -79,8 +80,9 @@ namespace WindowsFormsApp1.game
             ShootPower = 0;
         }
 
-        public void Shoot()
+        public void Shoot(GameForm sender)
         {
+            sender.missiles.Add(new Missile(sender.player.PosX, sender.player.PosY, (int)(Math.Cos(Angle * Math.PI / 180) * (int)(ShootPower / 2)), -(int)(Math.Sin(Angle * Math.PI / 180) * (int)(ShootPower/3))-8));
             ShootPower = 0;
         }
     }
