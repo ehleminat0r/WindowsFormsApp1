@@ -8,11 +8,18 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace WindowsFormsApp1.game
 {
     public partial class GameForm : Form
     {
+        // Mouse
+        private const UInt32 MouseEventLeftDown = 0x0002;
+        private const UInt32 MouseEventLeftUp = 0x0004;
+        [DllImport("user32", EntryPoint = "mouse_event")]
+        private static extern void mouse_event(UInt32 dwFlags, UInt32 dx, UInt32 dy, UInt32 dwData, IntPtr dwExtraInfo);
+
         // Controls
         private bool left = false;
         private bool right = false;
@@ -38,6 +45,11 @@ namespace WindowsFormsApp1.game
             //GameLoop
             while (true)
             {
+                /*
+                // Mouseclick
+                mouse_event(MouseEventLeftDown, 0, 0, 0, new System.IntPtr());
+                mouse_event(MouseEventLeftUp, 0, 0, 0, new System.IntPtr());
+                */
                 // Delay
                 System.Threading.Thread.Sleep(10);
                 // Control
