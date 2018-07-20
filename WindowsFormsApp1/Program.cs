@@ -19,7 +19,7 @@ namespace WindowsFormsApp1
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Asteriods());
             //Application.Run(new GameForm());
-            Application.Run(new Rectangles());
+            Application.Run(new GraphicTest());
 
         }
     }
