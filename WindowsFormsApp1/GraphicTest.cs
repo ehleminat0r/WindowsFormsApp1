@@ -21,6 +21,7 @@ namespace WindowsFormsApp1
         // Line List
         private List<Point> lines = new List<Point>();
         // Polygon List
+        private int moveTimer = 0;
         private List<MovingPolygon> polys = new List<MovingPolygon>();
 
         public GraphicTest()
@@ -44,7 +45,7 @@ namespace WindowsFormsApp1
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
-            int count = rnd.Next(3, 8);
+            int count = rnd.Next(3, 80);
             PointF[] points = new PointF[count];
             for (int i = 0; i < points.Length; i++)
             {
@@ -73,16 +74,28 @@ namespace WindowsFormsApp1
                 foreach (MovingPolygon pol in polys)
                 {
                     e.Graphics.DrawPolygon(penWhite, pol.Points);
-                    if (sw.ElapsedMilliseconds%5 ==0)
+                    if (moveTimer > 5)
+                    {
                         pol.Move();
+                    }
+                        
                 }
             }
             catch (Exception exception)
             {
-
+                Console.WriteLine(exception);
             }
-            
-            
+
+            if (moveTimer > 5)
+            {
+                moveTimer = 0;
+            }
+            else
+            {
+                moveTimer++;
+            }
+                
+
         }
 
         private void DrawLines(PaintEventArgs e)
