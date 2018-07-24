@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -45,7 +46,7 @@ namespace WindowsFormsApp1
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
-            int count = rnd.Next(3, 80);
+            int count = rnd.Next(3, 8);
             PointF[] points = new PointF[count];
             for (int i = 0; i < points.Length; i++)
             {
@@ -63,9 +64,22 @@ namespace WindowsFormsApp1
             e.Graphics.DrawString("Time:  "+Convert.ToString(sw.ElapsedMilliseconds), new Font("system", 10), Brushes.White, 400, 10);
 
             //DrawLines(e);
-            DrawPolygons(e);
+            //DrawPolygons(e);
+            DrawMath(e);
             Invalidate();
         }
+
+        private void DrawMath(PaintEventArgs e)
+        {
+            for (int i = 0; i < Width; i += 35)
+            {
+                e.Graphics.DrawString("Sinus", new Font("system", 10), Brushes.White, i,
+                    300 + (float) Math.Sin(i / 50F) * 50);
+                //e.Graphics.DrawEllipse(penWhite, i, 300 + (float) Math.Sin(i / 50F) * 50, 4, 4);
+                //e.Graphics.DrawEllipse(penWhite, i, 300 + (float) Math.Cos(i / 50F) * 50, 4, 4);
+            }
+        }
+
 
         private void DrawPolygons(PaintEventArgs e)
         {
