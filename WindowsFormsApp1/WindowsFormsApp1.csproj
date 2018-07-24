@@ -56,6 +56,9 @@
     <Compile Include="FootballAndStuff.Designer.cs">
       <DependentUpon>FootballAndStuff.cs</DependentUpon>
     </Compile>
+    <Compile Include="DrawAndSave.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MinusXHoch2.cs">
       <SubType>Form</SubType>
     </Compile>

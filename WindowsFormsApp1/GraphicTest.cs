@@ -64,7 +64,7 @@ namespace WindowsFormsApp1
             e.Graphics.DrawString("Time:  "+Convert.ToString(sw.ElapsedMilliseconds), new Font("system", 10), Brushes.White, 400, 10);
 
             //DrawLines(e);
-            //DrawPolygons(e);
+            DrawPolygons(e);
             DrawMath(e);
             Invalidate();
         }
