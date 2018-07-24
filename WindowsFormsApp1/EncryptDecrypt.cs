@@ -8,10 +8,10 @@ using WindowsFormsApp1.Properties;
 
 namespace WindowsFormsApp1
 {
-    public partial class Form3 : Form
+    public partial class EncryptDecrypt : Form
     {
         Hashtable hash = new Hashtable();
-        public Form3()
+        public EncryptDecrypt()
         {
             InitializeComponent();
         }
@@ -128,16 +128,16 @@ namespace WindowsFormsApp1
             switch (tabControl1.SelectedIndex)
             {
                     case 0:
-                        new Form1().ShowDialog();
+                        new FootballAndStuff().ShowDialog();
                     break;
                 case 1:
-                    new Form2().ShowDialog();
+                    new MinusXHoch2().ShowDialog();
                     break;
                 case 2:
-                    new Form3().ShowDialog();
+                    new EncryptDecrypt().ShowDialog();
                     break;
                 case 3:
-                    new Form4().ShowDialog();
+                    new FallingApples().ShowDialog();
                     break;
                 case 4:
                     new Asteriods().ShowDialog();

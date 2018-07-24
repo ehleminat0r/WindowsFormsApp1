@@ -71,11 +71,18 @@ namespace WindowsFormsApp1
 
         private void DrawMath(PaintEventArgs e)
         {
-            for (int i = 0; i < Width; i += 35)
+            for (int i = 0; i < Width; i += 5)
             {
-                e.Graphics.DrawString("Sinus", new Font("system", 10), Brushes.White, i,
-                    300 + (float) Math.Sin(i / 50F) * 50);
-                //e.Graphics.DrawEllipse(penWhite, i, 300 + (float) Math.Sin(i / 50F) * 50, 4, 4);
+                if (i % 35 == 0)
+                {
+                    e.Graphics.DrawString("Sinus", new Font("system", 10), Brushes.White, i,
+                        300 + (float)Math.Sin(i / 50F) * 50);
+                }
+                else
+                {
+                    e.Graphics.DrawEllipse(penWhite, i, 300 + (float)Math.Sin(i / 50F) * 50, 4, 4);
+                }
+                
                 //e.Graphics.DrawEllipse(penWhite, i, 300 + (float) Math.Cos(i / 50F) * 50, 4, 4);
             }
         }

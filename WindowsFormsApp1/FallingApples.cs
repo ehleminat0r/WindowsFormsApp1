@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public partial class Form4 : Form
+    public partial class FallingApples : Form
     {
         Random rnd = new Random();
         Graphics g;
@@ -37,7 +37,7 @@ namespace WindowsFormsApp1
         private Boolean shoot = false;
         private int power = 25;
 
-        public Form4()
+        public FallingApples()
         {
             InitializeComponent();
             g = this.pictureBox1.CreateGraphics();

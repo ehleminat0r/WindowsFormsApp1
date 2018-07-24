@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp1
 {
-    partial class Form4
+    partial class FallingApples
     {
 
         /// <summary>

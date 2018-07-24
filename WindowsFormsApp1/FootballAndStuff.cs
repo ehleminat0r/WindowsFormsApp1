@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public partial class Form1 : Form
+    public partial class FootballAndStuff : Form
     {
         Stopwatch sw = new Stopwatch();
         String timeString;
@@ -33,7 +33,7 @@ namespace WindowsFormsApp1
         private int ballsave = 10;
 
 
-        public Form1()
+        public FootballAndStuff()
         {
             InitializeComponent();
             panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
@@ -268,7 +268,7 @@ namespace WindowsFormsApp1
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Form2 myForm2 = new Form2();
+            MinusXHoch2 myForm2 = new MinusXHoch2();
             myForm2.ShowDialog();
         }
 
