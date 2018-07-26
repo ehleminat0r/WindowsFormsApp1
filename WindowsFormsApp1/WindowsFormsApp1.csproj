@@ -90,6 +90,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tetris.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <EmbeddedResource Include="FootballAndStuff.resx">
       <DependentUpon>FootballAndStuff.cs</DependentUpon>
     </EmbeddedResource>
