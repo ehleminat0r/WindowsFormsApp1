@@ -19,7 +19,7 @@ namespace WindowsFormsApp1
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Asteriods());
             //Application.Run(new GameForm());
-            Application.Run(new Tetris());
+            Application.Run(new MusicMachine());
 
         }
     }
