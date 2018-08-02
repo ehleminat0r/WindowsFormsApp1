@@ -13,11 +13,11 @@ using Pen = System.Drawing.Pen;
 
 namespace WindowsFormsApp1
 {
-
     class MusicMachine : Form
     {
-        // Timer (atm not necessary)
+        // other
         System.Timers.Timer time = new System.Timers.Timer();
+        FileDialog fd = new OpenFileDialog();
 
         // Music pattern
         bool[] sound1 = new bool[16];
@@ -34,11 +34,15 @@ namespace WindowsFormsApp1
         MediaPlayer player3 = new MediaPlayer();
         MediaPlayer player4 = new MediaPlayer();
 
+        // Sound path
+        private string sPath1 = @"C:\windows\media\Windows Default.wav";
+        private string sPath2 = @"C:\windows\media\chord.wav";
+        private string sPath3 = @"C:\windows\media\ding.wav";
+        private string sPath4 = @"C:\windows\media\Windows Ding.wav";
+
         // Time position
         private int pos = 0;
-
-        // Textbox (speed)
-        TextBox tb = new TextBox();
+        private int speed = 5;
 
         public MusicMachine()
         {
@@ -46,7 +50,7 @@ namespace WindowsFormsApp1
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MinimizeBox = false;
             this.MaximizeBox = false;
-            this.Text = "MusicMachine";
+            this.Text = "MusicMachine Speed: 5";
             this.BackColor = Color.White;
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             DoubleBuffered = true;
@@ -55,17 +59,71 @@ namespace WindowsFormsApp1
             time.Interval = 1000;
             time.Elapsed += new ElapsedEventHandler(OnTick);
             //time.Start();
-            
-            // Textbox
-            tb.Left = 20;
-            tb.Top = 320;
-            tb.Width = 40;
-            tb.Height = 80;
-            tb.Text = "5";
-            this.Controls.Add(tb);
         }
 
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Q:
+                    fd.ShowDialog();
+                    sPath1 = fd.InitialDirectory + fd.FileName;
+                    break;
+                case Keys.W:
+                    fd.ShowDialog();
+                    sPath2 = fd.InitialDirectory + fd.FileName;
+                    break;
+                case Keys.E:
+                    fd.ShowDialog();
+                    sPath3 = fd.InitialDirectory + fd.FileName;
+                    break;
+                case Keys.R:
+                    fd.ShowDialog();
+                    sPath4 = fd.InitialDirectory + fd.FileName;
+                    break;
+                case Keys.D1:
+                    speed = 10;
+                    this.Text = "MusicMachine Speed: 1";
+                    break;
+                case Keys.D2:
+                    speed = 9;
+                    this.Text = "MusicMachine Speed: 2";
+                    break;
+                case Keys.D3:
+                    speed = 8;
+                    this.Text = "MusicMachine Speed: 3";
+                    break;
+                case Keys.D4:
+                    speed = 7;
+                    this.Text = "MusicMachine Speed: 4";
+                    break;
+                case Keys.D5:
+                    speed = 6;
+                    this.Text = "MusicMachine Speed: 5";
+                    break;
+                case Keys.D6:
+                    speed = 5;
+                    this.Text = "MusicMachine Speed: 6";
+                    break;
+                case Keys.D7:
+                    speed = 4;
+                    this.Text = "MusicMachine Speed: 7";
+                    break;
+                case Keys.D8:
+                    speed = 3;
+                    this.Text = "MusicMachine Speed: 8";
+                    break;
+                case Keys.D9:
+                    speed = 2;
+                    this.Text = "MusicMachine Speed: 9";
+                    break;
+                case Keys.D0:
+                    speed = 1;
+                    this.Text = "MusicMachine Speed: 10";
+                    break;
 
+            }
+        }
 
         private void OnTick(Object sender, ElapsedEventArgs e)
         {
@@ -76,15 +134,8 @@ namespace WindowsFormsApp1
         protected override void OnPaint(PaintEventArgs e)
         {
             // for delay
-            try
-            {
-                System.Threading.Thread.Sleep(Convert.ToInt32(tb.Text));
-            }
-            catch (Exception)
-            {
-                System.Threading.Thread.Sleep(5);
-            }
-            
+            System.Threading.Thread.Sleep(speed);
+
 
             // Increase Position
             if (pos < 239)
@@ -99,22 +150,22 @@ namespace WindowsFormsApp1
             // play sound
             if (sound1[pos / 15] == true && pos % 15 == 0 && pattern[0] == true)
             {
-                player1.Open(new System.Uri(@"C:\windows\media\Windows Default.wav"));
+                player1.Open(new System.Uri(sPath1));
                 player1.Play();
             }
             if (sound2[pos / 15] == true && pos % 15 == 0 && pattern[1] == true)
             {
-                player2.Open(new System.Uri(@"C:\windows\media\chord.wav"));
+                player2.Open(new System.Uri(sPath2));
                 player2.Play();
             }
             if (sound3[pos / 15] == true && pos % 15 == 0 && pattern[2] == true)
             {
-                player3.Open(new System.Uri(@"C:\windows\media\ding.wav"));
+                player3.Open(new System.Uri(sPath3));
                 player3.Play();
             }
             if (sound4[pos / 15] == true && pos % 15 == 0 && pattern[3] == true)
             {
-                player4.Open(new System.Uri(@"C:\windows\media\Windows Ding.wav"));
+                player4.Open(new System.Uri(sPath4));
                 player4.Play();
             }
 
@@ -126,15 +177,19 @@ namespace WindowsFormsApp1
 
             // Draw Sound bar 1
             DrawPattern(e, sound1, 1);
+            e.Graphics.DrawString("Taste Q: "+sPath1, new Font("system", 7), Brushes.Black, 15, 13);
 
             // Draw Sound bar 2
             DrawPattern(e, sound2, 2);
+            e.Graphics.DrawString("Taste W: " + sPath2, new Font("system", 7), Brushes.Black, 15, 53);
 
             // Draw Sound bar 3
             DrawPattern(e, sound3, 3);
+            e.Graphics.DrawString("Taste E: " + sPath3, new Font("system", 7), Brushes.Black, 15, 93);
 
             // Draw Sound bar 4
             DrawPattern(e, sound4, 4);
+            e.Graphics.DrawString("Taste R: " + sPath4, new Font("system", 7), Brushes.Black, 15, 133);
 
             // Draw switch
             for (int i = 0; i < pattern.Length; i++)
