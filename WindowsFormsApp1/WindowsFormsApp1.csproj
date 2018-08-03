@@ -95,6 +95,7 @@
     <Compile Include="MusicMachine.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Sample.cs" />
     <EmbeddedResource Include="FootballAndStuff.resx">
       <DependentUpon>FootballAndStuff.cs</DependentUpon>
     </EmbeddedResource>

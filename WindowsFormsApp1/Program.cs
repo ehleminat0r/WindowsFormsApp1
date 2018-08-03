@@ -17,8 +17,7 @@ namespace WindowsFormsApp1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Asteriods());
-            //Application.Run(new GameForm());
+            // Sample.play(); //Mary Had A Little Lamb
             Application.Run(new MusicMachine());
 
         }

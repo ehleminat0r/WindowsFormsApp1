@@ -13,6 +13,14 @@ using Pen = System.Drawing.Pen;
 
 namespace WindowsFormsApp1
 {
+    class beep
+    {
+        private int freq;
+        private int dur;
+
+        public int Freq { get => freq; set => freq = value; }
+        public int Dur { get => dur; set => dur = value; }
+    }
     class MusicMachine : Form
     {
         // other
@@ -40,6 +48,10 @@ namespace WindowsFormsApp1
         private string sPath3 = @"C:\windows\media\ding.wav";
         private string sPath4 = @"C:\windows\media\Windows Ding.wav";
 
+        // Beep
+        beep[] beeps = new beep[32];
+        static Random rnd = new Random();
+
         // Time position
         private int pos = 0;
         private int speed = 5;
@@ -59,6 +71,38 @@ namespace WindowsFormsApp1
             time.Interval = 1000;
             time.Elapsed += new ElapsedEventHandler(OnTick);
             //time.Start();
+
+            /* Beep Test
+             
+            for (int i = 0; i < beeps.Length; i++)
+            {
+                beeps[i] = new beep();
+                beeps[i].Freq = rnd.Next(1000)+50;
+                beeps[i].Dur = 100;
+            }
+
+            beeps[0].Freq = 1200;
+            beeps[1].Freq = 1000;
+            beeps[2].Freq = 1000;
+            beeps[3].Freq = 1100;
+            beeps[4].Freq = 900;
+            beeps[5].Freq = 900;
+            beeps[6].Freq = 800;
+            beeps[7].Freq = 900;
+            beeps[8].Freq = 1000;
+            beeps[9].Freq = 1100;
+            beeps[10].Freq = 1200;
+            beeps[11].Freq = 1200;
+            beeps[12].Freq = 1200;
+
+
+            for (int i = 0; i < beeps.Length; i++)
+            {
+                Console.Beep(beeps[i].Freq,beeps[i].Dur);
+                //System.Threading.Thread.Sleep(100);
+            }
+
+            */
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
