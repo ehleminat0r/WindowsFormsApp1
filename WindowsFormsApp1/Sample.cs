@@ -1,11 +1,28 @@
 ﻿// This example demonstrates the Console.Beep(Int32, Int32) method
 using System;
+using System.Speech.Synthesis;
 using System.Threading;
 
 class Sample
 {
     public static void play()
     {
+        SpeechSynthesizer ss = new SpeechSynthesizer();
+        ss.SetOutputToDefaultAudioDevice();
+        ss.Rate = -10;
+        ss.Speak("Endoplasmatisches Retikolum");
+        ss.Speak("82193819242198214 €");
+
+        ss.Speak("Mary had a little lamb aaaaaaaa a  a aaaa a aa a aaaa aaaaii iaiaiiiaiaiai uuu uu u u oo o o oo e e eeeee e e And iiiiiiiii will always love youuuuuuuu");
+        ss.Rate = -2;
+        ss.Speak("a a  a aa  a a  a");
+        ss.Rate = 0;
+        ss.Speak("a a  a aa  a a  a");
+        ss.Rate = 2;
+        ss.Speak("a a  a aa  a a  a");
+        ss.Rate = 0;
+
+
         // Declare the first few notes of the song, "Mary Had A Little Lamb".
         Note[] Mary =
             {
