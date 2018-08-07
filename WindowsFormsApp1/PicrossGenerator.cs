@@ -9,14 +9,13 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    class Picross : Form
+    class PicrossGenerator : Form
     {
         private bool[,] field = new bool[20, 20];
-        private bool[,] fieldImport = new bool[20, 20];
         private List<List<int>> countX = new List<List<int>>();
         private List<List<int>> countY = new List<List<int>>();
 
-        public Picross()
+        public PicrossGenerator()
         {
             this.Size = new Size(640, 670);
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -93,59 +92,38 @@ namespace WindowsFormsApp1
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            string[] zeilen = new string[20];
-            // create reader & open file
-            TextReader tr = new StreamReader("save.txt");
-
-            for (int i = 0; i < 20; i++)
+            string save = "";
+            TextWriter tw = new StreamWriter("save.txt");
+            for (int i = 0; i < field.GetLength(0); i++)
             {
-                string zeile = tr.ReadLine();
-                zeilen = zeile.Split(' ');
-                for (int j = 0; j < 20; j++)
+                for (int j = 0; j < field.GetLength(1); j++)
                 {
-                    if (zeilen[j] == "False")
-                    {
-                        fieldImport[i, j] = false;
-                    }
-                    else
-                    {
-                        fieldImport[i, j] = true;
-                    }
+                    save = save + field[j, i] + " ";
                 }
+                tw.WriteLine(save);
+                save = "";
             }
-
-            for (int i = 0; i < 20; i++)
+            foreach (List<int> list in countX)
             {
-                countX[i].Clear();
-                countY[i].Clear();
-            }
-            int count = 0;
-            string save = tr.ReadLine();
-            while (save != "countX")
-            {
-                zeilen = save.Split(' ');
-                for (int i = 0; i < zeilen.Length-1; i++)
+                foreach (int numbers in list)
                 {
-                    countX[count].Add(Convert.ToInt32(zeilen[i]));
+                    save = save + Convert.ToString(numbers) + " ";
                 }
-                count++;
-                save = tr.ReadLine();
+                tw.WriteLine(save);
+                save = "";
             }
-            save = tr.ReadLine();
-            count = 0;
-            while (save != "countY")
+            tw.WriteLine("countX");
+            foreach (List<int> list in countY)
             {
-                zeilen = save.Split(' ');
-                for (int i = 0; i < zeilen.Length - 1; i++)
+                foreach (int numbers in list)
                 {
-                    countY[count].Add(Convert.ToInt32(zeilen[i]));
+                    save = save + Convert.ToString(numbers) + " ";
                 }
-                count++;
-                save = tr.ReadLine();
+                tw.WriteLine(save);
+                save = "";
             }
-
-            // close the stream
-            tr.Close();
+            tw.WriteLine("countY");
+            tw.Close();
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -167,8 +145,80 @@ namespace WindowsFormsApp1
 
         void CheckField()
         {
-           Console.WriteLine("a");
+            // X
+            int count = 0;
+            bool lastwastrue = false;
+            for (int i = 0; i < field.GetLength(0); i++)
+            {
+                countX[i].Clear();
+                for (int j = 0; j < field.GetLength(1); j++)
+                {
+                    if (field[j, i] == true)
+                    {
+                        count++;
+                        lastwastrue = true;
+                    }
+                    else
+                    {
+                        if (lastwastrue)
+                        {
+                            countX[i].Add(count);
+                            count = 0;
+                            lastwastrue = false;
+                        }
+                    }
+                }
+                // letztes feld checken
+                if (field[field.GetLength(1) - 1, i])
+                {
+                    countX[i].Add(count);
+                    lastwastrue = false;
+                }
 
+                // falls nichts im feld ist 0 schreiben
+                if (countX[i].Count == 0)
+                {
+                    countX[i].Add(0);
+                }
+                count = 0;
+            }
+
+            // Y
+            lastwastrue = false;
+            for (int i = 0; i < field.GetLength(0); i++)
+            {
+                countY[i].Clear();
+                for (int j = 0; j < field.GetLength(1); j++)
+                {
+                    if (field[i, j] == true)
+                    {
+                        count++;
+                        lastwastrue = true;
+                    }
+                    else
+                    {
+                        if (lastwastrue)
+                        {
+                            countY[i].Add(count);
+                            count = 0;
+                            lastwastrue = false;
+                        }
+                    }
+                }
+                // letztes feld checken
+                if (field[i, field.GetLength(0) - 1])
+                {
+                    countY[i].Add(count);
+                    lastwastrue = false;
+                }
+
+                // falls nichts im feld ist 0 schreiben
+                if (countY[i].Count == 0)
+                {
+                    countY[i].Add(0);
+                }
+                count = 0;
+            }
         }
     }
 }
