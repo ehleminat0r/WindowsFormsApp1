@@ -13,14 +13,6 @@ using Pen = System.Drawing.Pen;
 
 namespace WindowsFormsApp1
 {
-    class beep
-    {
-        private int freq;
-        private int dur;
-
-        public int Freq { get => freq; set => freq = value; }
-        public int Dur { get => dur; set => dur = value; }
-    }
     class MusicMachine : Form
     {
         // other
@@ -288,6 +280,7 @@ namespace WindowsFormsApp1
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
+            Console.Beep(e.Y*10,e.X*10);
             //Console.WriteLine(e.X);
             try
             {
@@ -411,4 +404,14 @@ namespace WindowsFormsApp1
 
         }
     }
+
+    class beep
+    {
+        private int freq;
+        private int dur;
+
+        public int Freq { get => freq; set => freq = value; }
+        public int Dur { get => dur; set => dur = value; }
+    }
+
 }
