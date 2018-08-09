@@ -11,14 +11,16 @@ namespace WindowsFormsApp1
 {
     class Picross : Form
     {
+        private int size = 4;
         private bool[,] field = new bool[20, 20];
         private bool[,] fieldImport = new bool[20, 20];
         private List<List<int>> countX = new List<List<int>>();
         private List<List<int>> countY = new List<List<int>>();
+        
 
         public Picross()
         {
-            this.Size = new Size(640, 670);
+            this.Size = new Size(635, 655);
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MinimizeBox = false;
             this.MaximizeBox = false;
@@ -28,12 +30,12 @@ namespace WindowsFormsApp1
             DoubleBuffered = true;
 
             // initialize List
-            for (int i = 0; i < field.GetLength(0); i++)
+            for (int i = 0; i < 20; i++)
             {
                 countX.Add(new List<int>());
                 countX[i].Add(0);
             }
-            for (int i = 0; i < field.GetLength(1); i++)
+            for (int i = 0; i < 20; i++)
             {
                 countY.Add(new List<int>());
                 countY[i].Add(0);
@@ -43,18 +45,18 @@ namespace WindowsFormsApp1
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            for (int i = 0; i < field.GetLength(0); i++)
+            for (int i = 0; i < size * 5; i++)
             {
-                for (int j = 0; j < field.GetLength(1); j++)
+                for (int j = 0; j < size * 5; j++)
                 {
                     // Draw Blue lines
                     if (i % 5 == 0)
                     {
-                        e.Graphics.DrawLine(Pens.Blue, 99 + i * 25, 0, 99 + i * 25, field.GetLength(0) * 25 + 98);
+                        e.Graphics.DrawLine(Pens.Blue, 99 + i * 25, 0, 99 + i * 25, size * 5 * 25 + 98);
                     }
                     if (j % 5 == 0)
                     {
-                        e.Graphics.DrawLine(Pens.Blue, 0, 99 + j * 25, field.GetLength(1) * 25 + 98, 99 + j * 25);
+                        e.Graphics.DrawLine(Pens.Blue, 0, 99 + j * 25, size * 5 * 25 + 98, 99 + j * 25);
                     }
 
                     // Draw field
@@ -69,7 +71,7 @@ namespace WindowsFormsApp1
                 }
             }
             // Draw Text
-            for (int i = 0; i < countX.Count; i++)
+            for (int i = 0; i < size * 5; i++)
             {
                 for (int j = 0; j < countX[i].Count; j++)
                 {
@@ -78,7 +80,7 @@ namespace WindowsFormsApp1
                 }
                     
             }
-            for (int i = 0; i < countY.Count; i++)
+            for (int i = 0; i < size * 5; i++)
             {
                 for (int j = 0; j < countY[i].Count; j++)
                 {
@@ -86,6 +88,30 @@ namespace WindowsFormsApp1
                         104 + i * 25, 10 + (15 * j));
                 }
 
+            }
+            // Select Size
+            e.Graphics.DrawString(" 5 x  5", new Font("system", 10), Brushes.Black, 5, 10);
+            e.Graphics.DrawString("10 x 10", new Font("system", 10), Brushes.Black, 5, 30);
+            e.Graphics.DrawString("15 x 15", new Font("system", 10), Brushes.Black, 5, 50);
+            e.Graphics.DrawString("20 x 20", new Font("system", 10), Brushes.Black, 5, 70);
+            e.Graphics.DrawRectangle(Pens.Black, 55, 15, 10, 10);
+            e.Graphics.DrawRectangle(Pens.Black, 55, 35, 10, 10);
+            e.Graphics.DrawRectangle(Pens.Black, 55, 55, 10, 10);
+            e.Graphics.DrawRectangle(Pens.Black, 55, 75, 10, 10);
+            switch (size)
+            {
+                case 1:
+                    e.Graphics.FillRectangle(Brushes.Black, 55, 15, 10, 10);
+                    break;
+                case 2:
+                    e.Graphics.FillRectangle(Brushes.Black, 55, 35, 10, 10);
+                    break;
+                case 3:
+                    e.Graphics.FillRectangle(Brushes.Black, 55, 55, 10, 10);
+                    break;
+                case 4:
+                    e.Graphics.FillRectangle(Brushes.Black, 55, 75, 10, 10);
+                    break;
             }
 
             Invalidate();
@@ -105,11 +131,11 @@ namespace WindowsFormsApp1
                 {
                     if (zeilen[j] == "False")
                     {
-                        fieldImport[i, j] = false;
+                        field[j, i] = false;
                     }
                     else
                     {
-                        fieldImport[i, j] = true;
+                        field[j, i] = true;
                     }
                 }
             }
@@ -150,6 +176,7 @@ namespace WindowsFormsApp1
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
+            
             if (e.X - 100 >= 0 && ((e.X - 100) / 25) <= field.GetLength(0) -1 &&
                 e.Y - 100 >= 0 && ((e.Y - 100) / 25) <= field.GetLength(1) -1)
             {
@@ -163,12 +190,105 @@ namespace WindowsFormsApp1
                 }
                 CheckField();
             }
+
+            if (e.X >= 55 && e.X <= 65 && e.Y >= 15 && e.Y <= 25)
+            {
+                size = 1;
+                this.Size = new Size(260, 280);
+            }
+            if (e.X >= 55 && e.X <= 65 && e.Y >= 35 && e.Y <= 45)
+            {
+                size = 2;
+                this.Size = new Size(385, 405);
+            }
+            if (e.X >= 55 && e.X <= 65 && e.Y >= 55 && e.Y <= 65)
+            {
+                size = 3;
+                this.Size = new Size(510, 530);
+            }
+            if (e.X >= 55 && e.X <= 65 && e.Y >= 75 && e.Y <= 85)
+            {
+                size = 4;
+                this.Size = new Size(635, 655);
+            }
         }
 
         void CheckField()
         {
-           Console.WriteLine("a");
+            // X
+            int count = 0;
+            bool lastwastrue = false;
+            for (int i = 0; i < field.GetLength(0); i++)
+            {
+                countX[i].Clear();
+                for (int j = 0; j < field.GetLength(1); j++)
+                {
+                    if (field[j, i] == true)
+                    {
+                        count++;
+                        lastwastrue = true;
+                    }
+                    else
+                    {
+                        if (lastwastrue)
+                        {
+                            countX[i].Add(count);
+                            count = 0;
+                            lastwastrue = false;
+                        }
+                    }
+                }
+                // letztes feld checken
+                if (field[field.GetLength(1) - 1, i])
+                {
+                    countX[i].Add(count);
+                    lastwastrue = false;
+                }
 
+                // falls nichts im feld ist 0 schreiben
+                if (countX[i].Count == 0)
+                {
+                    countX[i].Add(0);
+                }
+                count = 0;
+            }
+
+            // Y
+            lastwastrue = false;
+            for (int i = 0; i < field.GetLength(0); i++)
+            {
+                countY[i].Clear();
+                for (int j = 0; j < field.GetLength(1); j++)
+                {
+                    if (field[i, j] == true)
+                    {
+                        count++;
+                        lastwastrue = true;
+                    }
+                    else
+                    {
+                        if (lastwastrue)
+                        {
+                            countY[i].Add(count);
+                            count = 0;
+                            lastwastrue = false;
+                        }
+                    }
+                }
+                // letztes feld checken
+                if (field[i, field.GetLength(0) - 1])
+                {
+                    countY[i].Add(count);
+                    lastwastrue = false;
+                }
+
+                // falls nichts im feld ist 0 schreiben
+                if (countY[i].Count == 0)
+                {
+                    countY[i].Add(0);
+                }
+                count = 0;
+            }
         }
     }
 }

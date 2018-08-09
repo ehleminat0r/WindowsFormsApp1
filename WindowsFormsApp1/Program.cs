@@ -17,7 +17,7 @@ namespace WindowsFormsApp1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Sample.play(); //Mary Had A Little Lamb
+            //Sample.play(); //Mary Had A Little Lamb
             //Application.Run(new MusicMachine());
             Application.Run(new Picross());
 

@@ -9,7 +9,7 @@ class Sample
     {
         SpeechSynthesizer ss = new SpeechSynthesizer();
         ss.SetOutputToDefaultAudioDevice();
-        ss.Rate = -10;
+        ss.Rate =10;
         ss.Speak("Endoplasmatisches Retikolum");
         ss.Speak("82193819242198214 €");
 
