@@ -14,6 +14,7 @@ namespace WindowsFormsApp1
     {
         private Point first;
         List<Rectangle> rects = new List<Rectangle>();
+        private static Random rnd = new Random();
 
         public CreateRectangle()
         {
@@ -33,9 +34,16 @@ namespace WindowsFormsApp1
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            
             for (int i = 0; i < rects.Count; i++)
             {
-                e.Graphics.DrawRectangle(Pens.Black,rects[i].topleft.X, rects[i].topleft.Y, rects[i].bottomright.X- rects[i].topleft.X, rects[i].bottomright.Y- rects[i].topleft.Y);
+                Pen pe = new Pen(Color.FromArgb((byte)rnd.Next(0, 255), (byte)rnd.Next(0, 255), (byte)rnd.Next(0, 255)));
+                e.Graphics.DrawRectangle(pe,rects[i].topleft.X, rects[i].topleft.Y, rects[i].bottomright.X- rects[i].topleft.X, rects[i].bottomright.Y- rects[i].topleft.Y);
+                for (int j = rects[i].topleft.Y; j < rects[i].bottomright.Y; j++)
+                {
+                    e.Graphics.DrawLine(pe, rects[i].topleft.X, j, rects[i].bottomright.X, j);
+                    System.Threading.Thread.Sleep(rnd.Next(10));
+                }
             }
             
         }
