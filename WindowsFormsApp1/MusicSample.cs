@@ -3,7 +3,7 @@ using System;
 using System.Speech.Synthesis;
 using System.Threading;
 
-class Sample
+class MusicSample
 {
     public static void play()
     {

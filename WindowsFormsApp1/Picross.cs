@@ -113,7 +113,7 @@ namespace WindowsFormsApp1
                     e.Graphics.FillRectangle(Brushes.Black, 55, 75, 10, 10);
                     break;
             }
-
+            System.Threading.Thread.Sleep(50);
             Invalidate();
         }
 
