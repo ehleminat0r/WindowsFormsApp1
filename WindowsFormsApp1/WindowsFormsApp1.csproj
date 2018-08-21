@@ -52,6 +52,12 @@
     <Compile Include="Asteroids.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="CalcGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CalcGame.Designer.cs">
+      <DependentUpon>CalcGame.cs</DependentUpon>
+    </Compile>
     <Compile Include="Encrypt.cs" />
     <Compile Include="FootballAndStuff.cs">
       <SubType>Form</SubType>
@@ -110,6 +116,9 @@
       <DependentUpon>CreateRectangle.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <EmbeddedResource Include="CalcGame.resx">
+      <DependentUpon>CalcGame.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CreateRectangle.resx">
       <DependentUpon>CreateRectangle.cs</DependentUpon>
     </EmbeddedResource>

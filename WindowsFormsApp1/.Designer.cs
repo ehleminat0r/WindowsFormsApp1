@@ -38,7 +38,6 @@
             this.Name = "CreateRectangle";
             this.Text = "Rectangle";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CreateRectangle_MouseDown);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.CreateRectangle_MouseUp);
             this.ResumeLayout(false);
 
         }

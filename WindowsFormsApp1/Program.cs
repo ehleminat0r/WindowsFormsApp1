@@ -19,7 +19,7 @@ namespace WindowsFormsApp1
             Application.SetCompatibleTextRenderingDefault(false);
             //MusicSample.play(); //Mary Had A Little Lamb
             //Application.Run(new MusicMachine());
-            Application.Run(new CreateRectangle());
+            Application.Run(new CalcGame());
 
         }
     }
