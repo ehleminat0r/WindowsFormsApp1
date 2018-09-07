@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,9 +15,12 @@ namespace ConsoleApp1
     {
         private static Random rnd = new Random();
         static List<int> numbers = new List<int>();
+        static Stopwatch sw = new Stopwatch();
+        static string path = @"C:\Users\lhassler\Desktop\test.txt";
 
         static void Main(string[] args)
         {
+            
             int input=-1;
             while (input <= 0)
             {
@@ -28,7 +34,7 @@ namespace ConsoleApp1
                     Console.WriteLine("Keine gueltige Zahl");
                 }
             }
-
+            sw.Start();
             for (int i = 0; i < input; i++)
             {
                 numbers.Add(rnd.Next(100));
@@ -66,6 +72,21 @@ namespace ConsoleApp1
                 Console.WriteLine();
             }
 
+            Console.WriteLine();
+            sw.Stop();
+            Console.WriteLine("Dauer: " + sw.ElapsedMilliseconds + " Millisekunden");
+            sw.Restart();
+            /*
+            StreamWriter swr = File.CreateText(path);
+
+                while (sw.ElapsedMilliseconds < 5000)
+                {
+                    swr.WriteLine("Dauer: " + sw.ElapsedMilliseconds + " Millisekunden");
+                    Console.WriteLine("Dauer: " + sw.ElapsedMilliseconds + " Millisekunden");
+            }
+                swr.Close();
+            */
+            sw.Stop();
             Console.ReadLine();
         }
     }
